@@ -42,12 +42,7 @@ The companies main database structure as seen below consists of four tables: tab
 
 
 # Executive Summary
-Fuzzy Factory recorded over 400,000 website sessions across the analysis period, yet only 32,313 resulted in completed transactions — an overall conversion rate of 6.8%. This report investigates the root causes of the 93.2% drop-off, identifies the primary bottleneck in the conversion funnel, and documents the A/B testing journey that progressively improved landing page performance. The findings support a focused optimization effort on the Detail View → Add-to-cart stage, while confirming that the Home/Landing page bottleneck has been largely resolved through iterative experimentation.
-
-[Visualization, including a graph of overall trends or snapshot of a dashboard]
-# Insights Deep Dive
-
-## ***Why does high traffic volume not translate into proportional order volume — where are customers dropping off?***
+..........
 
 Table 1: Total Session through funnel
 
@@ -58,11 +53,12 @@ Table 1: Total Session through funnel
 |2014|	233423|	233422 |130660 |108182|48794|	33058|	26580|	16860|
 |2015|	64198 |	64198	 | 38612 |32902	|15403|	10473|	8435 |	5420 |
 
+
 |<img width="1011" height="333" alt="Ảnh chụp màn hình 2026-03-29 230840" src="https://github.com/user-attachments/assets/15abc764-181f-422b-a3b2-fff8486d9917" />|
 |:---------:|
 |**Figure 2:** Conversion Rate and Drop-off by Stages|
 
-
+# Overview
 
 Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Factory e-commerce platform recorded a total of 472,871 sessions. Out of these, only 32,313 sessions successfully converted into orders, resulting in an overall Conversion Rate (CVR) of 6.8%. Analysis of the conversion funnel reveals three critical bottlenecks:
 - **Point 1: Home -> Product:** More than 200,000 sessions exit the site immediately after landing, without viewing any specific product.
@@ -70,6 +66,8 @@ Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Fact
 - **Point 3: Add-to-cart -> Success Purchase:** Out of 63,640   sessions that reached the "Add-to-cart" stage, 38,547 sessions failed to complete the transaction, resulting in only 32,313 successful orders.
 
 To better understand these bottlenecks and explain why high traffic volume does not translate into proportional orders, a detailed drill-down into the first stage is required:
+
+# Insight Deep Dive
 
 ### **Bottleneck 1:** Home → Product
 
@@ -150,8 +148,29 @@ This is the most significant active bottleneck.
 
 ## **Bottleneck 3 — Check-out funnel (Shipping → Billing → Purchased):**
 
-Elevated, but within the accepted e-commerce benchmark range of ~60–80% ([source](https://baymard.com/lists/cart-abandonment-rate)). Average time at this stage (~3.25 minutes) suggests checkout form complexity as a contributing factor. Given benchmark alignment, this is a lower priority relative to Bottleneck 2.
+***Key takeaway:*** The checkout flow is not the main problem. Overall, it performs better than the market benchmark, and the biggest drop-off happens earlier at the cart stage rather than during shipping or payment.
 
+- The overall cart abandonment rate is 65.97%, which is better than the global e-commerce benchmark of 69%–72% ([source](https://baymard.com/lists/cart-abandonment-rate)). This suggests that the bottom of the funnel is performing reasonably well, even though the total number of lost sessions is still large in absolute terms.
+
+Table 4: Total Session and Conversion Rate of each Stage in Check-out Funnel 
+|total cart sessions|	total shipping sessions|	cart to shipping cvr (%)|	total billing sessions|	shipping to billing cvr (%)| total success purchase|	billing to purchased cvr (%)|	cart abandonment rate (%)|
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+|94,953|	64,484|	67.91|	52,058|	80.73|	32,313|	62.07|	65.97|
+
+
+- The “shipping cost shock” hypothesis is not supported by the data. Once users reach the /shipping page, 80.73% continue to /billing, which means shipping fees and delivery timelines are not the main reason customers leave.
+
+- Payment is also not a major bottleneck. The /billing-2 → success conversion rate stays at 62.07%, showing that the payment step is working consistently well.
+
+Table 5: Billing landing page
+|Page URL| Period|Total Billing Session|Successful Purchase|Billing to Successful Purchase CVR (%)|
+|:-----|:-----:|:-----:|:-----:|:-----:|
+|`/billing`  |3/2012 - 1/2013 |3,617 |1,620 |44.79|
+|`/billing-2`|9/2012 - Current|48,441|30,693|63.36|
+
+**Conclusion:**
+
+>The biggest leakage is at the /cart → /shipping step, where conversion is only 67.91%. In other words, about 32% of users leave immediately after viewing their cart. This suggests many users may be checking total cost rather than fully committing to buy yet.
 
 # Recommendations:
 Based on the insights and findings above, we would recommend the [stakeholder team] to consider the following:
