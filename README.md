@@ -1,5 +1,5 @@
 # Maven-Fuzzy-Factory-Funnel-Traffic-Analysis
-An end-to-end data analysis project focused on optimizing the conversion funnel performance for "Maven Fuzzy Factory." This repository contains tools to identify customer drop-off points and measure the success of marketing campaigns through data-driven insights.
+An end-to-end data analysis project focused on optimizing the conversion funnel performance for "Maven Fuzzy Factory." This repository contains tools to identify root-cause of customer drop-off points and propose recommendation through data-driven insights.
 # Project Background
 Fuzzy Factory is a direct-to-consumer e-commerce company specializing in premium stuffed animals and gift-oriented bear products. The company has been operational since early 2012 and operates entirely through its online storefront, making website performance and conversion optimization central to its revenue model.
 
@@ -40,30 +40,10 @@ The companies main database structure as seen below consists of four tables: tab
 |:-----------:|
 |**Figure 1:** Entities Relationship Diagram|
 
-
 # Executive Summary
-..........
+Between 2012 and 2015, the platform generated over 472,000 sessions with an overall conversion rate of 6.8%. While desktop acquisition is optimized—notably through the /lander-5 deployment—the funnel reveals the main bottlenecks: systemic mobile underperformance. To maximize efficiency, we recommend establishing /lander-5 as the desktop control baseline, and optimizing the mobile funnel to close the device performance gap,
 
 # Overview
-
-## Traffic & Growth Overview
- 
-**Fuzzy Factory's growth over three years was not just volume — it was volume with improving efficiency at every stage.**
- 
-| Year | Total Sessions | Total Orders | Overall CVR | Landing → Product | Product → Cart | Cart → Order |
-|---|---|---|---|---|---|---|
-| 2012 | 62,470 | 2,586 | 3.19% → 5.02% | 39% → 50% | 30% → 32% | 22% → 32% |
-| 2013 | 112,781 | 7,447 | 6.09% → 6.95% | 52% → 56% | 33% → 36% | 33% → 37% |
-| 2014 | 233,423 | 16,860 | 6.27% → 7.90% | 49% → 58% | 37% → 39% | 33% → 36% |
-| 2015 | 64,198 | 5,420 | 8.28% → 8.70% | 59% → 60% | 39% → 41% | 34% → 36% |
- 
-**Traffic scaled 16x, but orders scaled 39x.** Each additional session in 2015 was worth materially more than each session in 2012 — reflecting a funnel that improved in parallel with volume growth.
- 
-**CVR improvement was driven by all three stages simultaneously.** Landing → Product improved +21pp, Product → Cart improved +11pp, Cart → Order improved +13pp. No single stage carried the improvement — the entire funnel moved together.
- 
-**The steepest gains occurred between 2012 and 2013.** Overall CVR nearly doubled in this window, coinciding with the introduction of optimized landing pages and mobile-specific routing. Subsequent years showed continued but more moderate improvement — consistent with a maturing funnel approaching its structural ceiling.
-
-## Funnel Snapshot
 
 Table 1: Total Session through funnel
 
@@ -89,7 +69,7 @@ To better understand these bottlenecks and explain why high traffic volume does 
 
 ### **Stage 1:** Top-Funnel Diagnostics (Home/Landing → Product)
 
-***Key takeaway:*** The 200,000+ session drop-off at the top of the funnel is primarily a filtering of low-intent traffic, not a UI/UX failure. Continuous A/B testing and split-routing have optimized this stage close to its ceiling, with the exception of a gap on mobile devices.
+***Key takeaway:*** The 200,000+ session drop-off at the top of the funnel is primarily a filtering of low-intent traffic. Continuous A/B testing and split-routing have optimized this stage close to its ceiling, with the exception of a gap on mobile devices.
 
 - **Main finding 1:** The hypothesis that the landing page design is flawed is rejected for desktop users. Historical data traces the A/B testing progression for new desktop traffic. Between mid-2012 and mid-2014, traffic allocated to early variants (`/lander-1`, `/lander-2`, and `/lander-4`) resulted in a 45%–55% CTR, underperforming the `/home` page's 60%–66% baseline and reducing overall monthly averages. In August 2014, the deployment of `/lander-5` achieved a 62.1% CTR, matching the `/home` baseline. Reallocating traffic volume to `/lander-5` in late 2014 stabilized the overall desktop acquisition CTR above 60% by early 2015.
 
@@ -112,46 +92,66 @@ To better understand these bottlenecks and explain why high traffic volume does 
 **Conclusion:**
 >The top-funnel is functioning exactly as an optimized filter should. The remaining drop-offs are largely the natural friction of acquiring first-time buyers. The only actionable structural leak left at this stage is the ~10% performance gap on mobile devices, which requires a final round of mobile viewport optimization.
 
+## **Stage 2:** Mid-Funnel Diagnostics (Detail View → Add-to-Cart)
 
-## **Bottleneck 2 — Detail View → Add-to-Cart (~55% drop-off):**
+***Key takeaway:*** The ~55% mid-funnel drop-off is a compound issue, driven by the conversion ceiling of the primary product (`Mr. Fuzzy`) and consistent friction on mobile devices across all product pages.
 
-
-|**Figure 5:** Product Detail to Add-to-Cart Conversion Rate by Product|
-|:----------------:|
 |<img width="1186" height="690" alt="image" src="https://github.com/user-attachments/assets/e005ec95-6531-4caf-a1f6-b30636b18736" />|
+|:----------------:|
+|**Figure 5:** Product Detail to Add-to-Cart Conversion Rate by Product|
+
+- **Main finding 1:** The primary product, `/the-original-mr-fuzzy`, drives volume but represents the largest absolute drop-off. It accounts for 77.5% of product views but results in over 92,000 lost "Add-to-Cart" sessions due to its 43.04% CVR baseline. Newer products (`Love Bear` at 55.6% and `Mini Bear` at 65.1%) operate at higher conversion rates, but their overall impact is limited by lower traffic allocation.
+
+- **Main finding 2:** The drop-off rate is higher on mobile devices across all products. For `/the-original-mr-fuzzy`, mobile PDP-to-ATC conversion lags desktop by 3.8 percentage points (40.1% vs. 43.9%). This consistent underperformance across the portfolio indicates a mobile-specific UX issue.
+
+Table 4: Product Portfolio Conversion Performance (Aggregate 2012 - 2015)
+| Product Landing Page | Total Detail Views | Sessions Added to Cart | View-to-Cart CVR | View-to-Cart CVR (Mobile Only) |
+|:---|---:|---:|---:|---:|
+| `/the-original-mr-fuzzy` | 162,525 | 69,957 | 43.04% | 40.13% |
+| `/the-forever-love-bear` | 26,033 | 14,485 | 55.64% | 50.20% |
+| `/the-birthday-sugar-panda` | 19,046 | 8,811 | 46.26% | 41.50% |
+| `/the-hudson-river-mini-bear` | 2,610 | 1,700 | 65.13% | 60.30% |
+
+- **Main finding 3** Assuming a uniform PDP layout template, the higher conversion rates of alternative SKUs indicate product-market fit rather than page design differences. The current user flow does not systematically direct traffic bouncing from the primary product to these alternatives.
+
+**Conclusion:**
+> Mitigating the 55% mid-funnel drop-off requires two actions. Operationally, a mobile PDP audit is needed to address CTA visibility. Strategically, implementing a cross-sell architecture (e.g., "Frequently Bought Together") on the primary product page will redirect bouncing users to the higher-converting secondary products.
 
 ## **Bottleneck 3 — Check-out funnel (Shipping → Billing → Purchased):**
 
-***Key takeaway:*** The checkout flow outperforms global e-commerce benchmarks, indicating that bottom-funnel UI/UX is highly optimized. The primary drop-off occurs at the initial Cart stage rather than during shipping or payment steps.
+***Key takeaway:*** The checkout flow outperforms global e-commerce benchmarks, indicating that bottom-funnel is highly optimized. The primary drop-off occurs at the initial Cart stage rather than during shipping or payment steps.
 
-- **Main finding 1:** The hypothesis of widespread bottom-funnel friction is rejected. The overall cart abandonment rate is 65.97%, outperforming the global e-commerce benchmark of 69%–72% ([source](https://baymard.com/lists/cart-abandonment-rate)). This confirms the checkout infrastructure is structurally sound, despite the absolute volume of drop-offs.
+- **Main finding 1:** Overall cart abandonment of 65.97% falls below the global e-commerce benchmark of 69–72% ([source](https://baymard.com/lists/cart-abandonment-rate)). However, device-level breakdown reveals that desktop (63.00%) is driving this result, while mobile (77.23%) sits above benchmark — indicating the aggregate figure masks a structural mobile problem.
 
 Table 4: Total Session and Conversion Rate of each Stage in Check-out Funnel 
-|total cart sessions|	total shipping sessions|	cart to shipping cvr (%)|	total billing sessions|	shipping to billing cvr (%)| total success purchase|	billing to purchased cvr (%)|	cart abandonment rate (%)|
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-|94,953|	64,484|	67.91|	52,058|	80.73|	32,313|	62.07|	65.97|
+|device|total cart sessions|	total shipping sessions|	cart to shipping cvr (%)|	total billing sessions|	shipping to billing cvr (%)| total success purchase|	billing to purchased cvr (%)|	cart abandonment rate (%)|
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+mobile |	19798|	11792|	59.56|	8336 |	70.69|	4508 |	54.08|	77.23|
+desktop|	75155|	52692|	70.11|	43722|	82.98|	27805|	63.59|	63.00|
 
-- **Main finding 2:** The “shipping cost shock” hypothesis is not supported by the data. Upon reaching the `/shipping` page, 80.73% of sessions proceed to `/billing`. This high progression rate demonstrates that shipping fees and delivery timelines are not significant deterrents for users at this stage.
-   
-- **Main finding 3:** Payment friction was resolved via historical A/B testing. The original `/billing` page yielded a 44.79% conversion rate. The deployment of `/billing-2` in September 2012 increased and stabilized the payment-to-purchase conversion rate at 63.36%, confirming the payment step operates efficiently.
+- Main finding 2: Shipping cost is not a driver of drop-off. Of sessions reaching /shipping, 80.73% proceed to /billing — indicating that delivery terms are not a deterrent at this stage.
+
+- Main finding 3: Payment friction was resolved through A/B testing. /billing-2 lifted billing-to-purchase CVR from 44.79% to 63.36% on desktop and from 34.55% to 55.09% on mobile — a sustained improvement that has held since September 2012.
   
 Table 5: Billing Landing Page Performance
-|Page URL| Period|Total Billing Session|Successful Purchase|Billing to Successful Purchase CVR (%)|
-|:-----|:-----:|:-----:|:-----:|:-----:|
-|`/billing`  |3/2012 - 1/2013 |3,617 |1,620 |44.79|
-|`/billing-2`|9/2012 - Current|48,441|30,693|63.36|
+|Device|Page URL| Period|Total Billing Session|Successful Purchase|Billing to Successful Purchase CVR (%)|
+|:-----|:-----:|:-----:|:-----:|:-----:|:-----:|
+|desktop|/billing  |	3206	|1478|	46.10|
+|desktop|/billing-2|	40516|	26327|	64.98|
+|mobile|	/billing  |	411	|142	|34.55|
+|mobile|	/billing-2|	7925|	4366|	55.09|
 
 **Conclusion:**
 
->The biggest leakage within the checkout funnel is at the /cart → /shipping step, where conversion is only 67.91%. In other words, about 32% of users leave immediately after viewing their cart. This suggests many users may be checking total cost rather than fully committing to buy yet.
+>The checkout funnel performs within benchmark at the aggregate level, but this masks a mobile abandonment rate of 77.23% — 14 percentage points above desktop. The gap runs across all three checkout steps and is not explained by shipping cost or payment design, both of which have been addressed. Mobile checkout UX is the one remaining active problem at this stage.
 
 # Recommendations:
 Based on the insights and findings above, we would recommend the [stakeholder team] to consider the following:
-Specific observation that is related to a recommended action. Recommendation or general guidance based on this observation.
-Specific observation that is related to a recommended action. Recommendation or general guidance based on this observation.
-Specific observation that is related to a recommended action. Recommendation or general guidance based on this observation.
-Specific observation that is related to a recommended action. Recommendation or general guidance based on this observation.
-Specific observation that is related to a recommended action. Recommendation or general guidance based on this observation.
+|Priority|Observation|Recommendation|
+|:------:|-------|-------|
+|P1|consistent underperformance of mobile traffic across the funnel. Data indicates a ~10% performance gap at the acquisition stage (`/lander-3` vs. desktop equivalents) and a 3.8% lag in Product Detail Page (PDP) conversion.|Prioritize mobile viewport optimization for landing pages and ensure above-the-fold visibility for the "Add-to-Cart" CTA on all mobile product pages to eliminate systemic device friction.|
+|P2|`/lander-5` matches `/home` on CTR for new desktop customers (61–63% vs. 61–65%) but records the lowest refund rate among active landing pages (4.07% vs. 4.28–4.40%). This indicates that `/lander-5` attracts higher-quality buyers, not just more clicks|Use `/lander-5` as the control baseline for any future desktop landing page experiments. Prioritize traffic allocation to `/lander-5` over other variants when acquisition quality — not just volume — is the objective|
+
 # Assumptions and Caveats:
 
 Throughout the analysis, multiple assumptions were made to manage challenges with the data. These assumptions and caveats are noted below:
@@ -163,10 +163,6 @@ For records in website_sessions where utm_campaign is missing (null), traffic is
 - ***Direct Traffic:*** Sessions where both utm_source and http_referer are null — users accessing via direct URL or bookmarks.
 - ***Organic Search:*** Sessions where utm_source is null but http_referer contains search engine strings — unpaid search discovery.
 
-**2. Bounce rate benchmarks sourced from Shopify industry data:**
-
-The e-commerce bounce rate benchmark range of 36–45% referenced in Category 2 is based on published Shopify industry averages for retail and gifting categories. This benchmark should be periodically refreshed as market conditions evolve.
-
-**3. March 2015 YoY decline is a data artifact, not a business signal:**
+**2. March 2015 YoY decline is a data artifact, not a business signal:**
 
 The apparent decline in March 2015 is caused by the dataset ending on March 19 — creating an incomplete month compared to a full March 2014. Therefore, this should not be reported as a performance decline.
