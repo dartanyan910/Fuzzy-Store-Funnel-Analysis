@@ -16,9 +16,9 @@ Insights and recommendations are provided on the following stakeholder questions
 
 `Why does high traffic volume not translate into proportional order volume — what is actually optimized, and where is the funnel still leaking?`
 
-The Python codes used to inspect and clean the data for this analysis can be found here [link].
+The Python codes used to inspect and clean the data for this analysis can be found [here]().
 
-Targeted SQL queries regarding various business questions can be found here [link].
+Targeted SQL queries regarding various business questions can be found [here](https://github.com/dartanyan910/Fuzzy-Store-Funnel-and-Product-Launching-analysis/blob/main/SQL.sql).
 
 An interactive Tableau dashboard used to report and explore sales trends can be found here [link].
 # Data Structure & Initial Checks
