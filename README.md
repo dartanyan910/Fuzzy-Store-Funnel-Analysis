@@ -46,6 +46,15 @@ Desktop acquisition and checkout performance are both well-optimized through pri
 
 # Overview
 
+Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Factory e-commerce platform recorded a total of 472,871 sessions. Out of these, only 32,313 sessions successfully converted into orders, resulting in an overall Conversion Rate (CVR) of 6.8%. Analysis of the conversion funnel reveals three critical bottlenecks:
+- **Point 1: Home -> Product:** More than 200,000 sessions exit the site immediately after landing, without viewing any specific product.
+- **Point 2: Product Detail View -> Add-to-cart:** Approximately 115,000 sessions—nearly 54,8% of users who viewed a product—dropped off before adding an item to their cart.
+- **Point 3: Add-to-cart -> Success Purchase:** Out of 63,640 sessions that reached the "Add-to-cart" stage, 31,327 sessions failed to complete the transaction, resulting in only 32,313 successful orders.
+
+|<img width="1181" height="234" alt="image" src="https://github.com/user-attachments/assets/3f93f3b4-4c19-4051-a605-3a00a9af0612" />|
+|:---------:|
+|**Figure 2:** Conversion Rate and Drop-off by Stages|
+
 Table 1: Total Session through funnel
 
 |Year|Total Sessions|Step 1-Home|Step 2-products|Step 3-Product Detail|Step 4-Cart|Step 5-Shipping|Step 6-Billing|Step 7-Ordered|
@@ -54,15 +63,6 @@ Table 1: Total Session through funnel
 |2013|	112781|	112781 |62491	 |47878	|21521|	14647|	11877|	7447 |
 |2014|	233423|	233422 |130660 |108182|48794|	33058|	26580|	16860|
 |2015|	64198 |	64198	 | 38612 |32902	|15403|	10473|	8435 |	5420 |
-
-Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Factory e-commerce platform recorded a total of 472,871 sessions. Out of these, only 32,313 sessions successfully converted into orders, resulting in an overall Conversion Rate (CVR) of 6.8%. Analysis of the conversion funnel reveals three critical bottlenecks:
-- **Point 1: Home -> Product:** More than 200,000 sessions exit the site immediately after landing, without viewing any specific product.
-- **Point 2: Product Detail View -> Add-to-cart:** Approximately 115,000 sessions—nearly 54,8% of users who viewed a product—dropped off before adding an item to their cart.
-- **Point 3: Add-to-cart -> Success Purchase:** Out of 63,640 sessions that reached the "Add-to-cart" stage, 31,327 sessions failed to complete the transaction, resulting in only 32,313 successful orders.
-
-|<img width="1011" height="333" alt="Ảnh chụp màn hình 2026-03-29 230840" src="https://github.com/user-attachments/assets/15abc764-181f-422b-a3b2-fff8486d9917" />|
-|:---------:|
-|**Figure 2:** Conversion Rate and Drop-off by Stages|
 
 To better understand these bottlenecks and explain why high traffic volume does not translate into proportional orders, a detailed drill-down into the first stage is required:
 
