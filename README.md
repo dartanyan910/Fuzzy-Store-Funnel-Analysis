@@ -46,7 +46,7 @@ Desktop acquisition and checkout performance are both well-optimized through pri
 
 # Overview
 
-Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Factory e-commerce platform recorded a total of 472,871 sessions. Out of these, only 32,313 sessions successfully converted into orders, resulting in an overall Conversion Rate (CVR) of 6.8%. Analysis of the conversion funnel reveals three critical bottlenecks:
+Based on Table 1 and Figure 2, between March 2012 and March 2015, the Fuzzy Factory e-commerce platform recorded a total of 472,871 sessions. Out of these, only 32,313 sessions successfully converted into orders, resulting in an overall CVR of 6.8%. Analysis of the conversion funnel reveals three critical bottlenecks:
 - **Point 1: Home -> Product:** More than 200,000 sessions exit the site immediately after landing, without viewing any specific product.
 - **Point 2: Product Detail View -> Add-to-cart:** Approximately 115,000 sessions—nearly 54,8% of users who viewed a product—dropped off before adding an item to their cart.
 - **Point 3: Add-to-cart -> Success Purchase:** Out of 63,640 sessions that reached the "Add-to-cart" stage, 31,327 sessions failed to complete the transaction, resulting in only 32,313 successful orders.
@@ -64,15 +64,15 @@ Table 1: Total Session through funnel
 |2014|	233423|	233422 |130660 |108182|48794|	33058|	26580|	16860|
 |2015|	64198 |	64198	 | 38612 |32902	|15403|	10473|	8435 |	5420 |
 
-To better understand these bottlenecks and explain why high traffic volume does not translate into proportional orders, a detailed drill-down into the first stage is required:
+To better understand these bottlenecks and explain why high traffic volume does not translate into proportional orders, a detailed drill-down into three stages is required:
 
 # Insight Deep Dive
 
 ### **Bottleneck 1:** Top-Funnel Diagnostics (Home/Landing → Product)
 
-***Key takeaway:*** The 200,000+ session drop-off at the top of the funnel is primarily a filtering of low-intent traffic. Continuous A/B testing and split-routing have optimized this stage close to its ceiling, with the exception of a gap on mobile devices.
+***Key takeaway:*** The 200,000+ session drop-off at the top of the funnel is primarily a filtering of low-intent traffic. Continuous launching new lander page and split-routing have optimized this stage close to its ceiling, with the exception of a gap on mobile devices.
 
-- **Main finding 1:** The hypothesis that the landing page design is flawed is rejected for desktop users. Historical data traces the A/B testing progression for new desktop traffic. Between mid-2012 and mid-2014, traffic allocated to early variants (`/lander-1`, `/lander-2`, and `/lander-4`) resulted in a 45%–55% CTR, underperforming the `/home` page's 60%–66% baseline and reducing overall monthly averages. In August 2014, the deployment of `/lander-5` achieved a 62.1% CTR, matching the `/home` baseline. Reallocating traffic volume to `/lander-5` in late 2014 stabilized the overall desktop acquisition CTR above 60% by early 2015.
+- **Main finding 1:** The hypothesis that the landing page design is flawed is rejected for desktop users. Historical data indicates that the continuous launching of ineffective landing pages caused a downfall in Maven Fuzzy Factory's overall acquisition CVR. Based on Figure 3, between mid-2012 and mid-2014, traffic allocated to early variants (`/lander-1`, `/lander-2`, and `/lander-4`) resulted in a 45%–55% CTR, underperforming the `/home` page's CTR of 60%–66%. In late 2014, testing the new *desktop_targeted* campaign on `/lander-2` also attracted low-quality traffic, leading to poor performance in converting new visitors. To address this, in August 2014, Maven Fuzzy Factory launched `/lander-5`. A statistical comparison was performed between `/lander-5` and `/lander-2`. To specify, the analysis showed that `/lander-5` achieved a significantly have higher CTR of 61.38% compared to 55.81% for `/lander-2`, indicating the success of `/lander-5` in converting traffic into orders. Moreover, `/lander-5` - a non-brand attracted lander - demonstrated excellent performance, with a CTR closely rivaling that of the `/home` page, which specializes in attracting customers through brand campaigns. This launch in late 2014 stabilized the overall desktop acquisition CTR above 60% by early 2015.
 
 |<img width="1389" height="690" alt="image" src="https://github.com/user-attachments/assets/a62dbe2f-73b6-497e-ad37-64494291eced" />|
 |:---------:|
@@ -118,23 +118,25 @@ Table 3: Next Action Distribution for Mr.Fuzzy
 
 - **Main finding 1:** Overall cart abandonment of 65.97% falls below the global e-commerce benchmark of 69–72% ([source](https://baymard.com/lists/cart-abandonment-rate)). However, device-level breakdown reveals that desktop (63.00%) is driving this result, while mobile (77.23%) sits above benchmark — indicating the aggregate figure masks a structural mobile problem.
 
+- **Main finding 2:** Shipping cost is not a driver of drop-off. Of sessions reaching /shipping, 80.73% proceed to /billing — indicating that delivery terms are not a deterrent at this stage.
+
 Table 4: Total Session and Conversion Rate of each Stage in Check-out Funnel 
 |device|total cart sessions|	total shipping sessions|	cart to shipping cvr (%)|	total billing sessions|	shipping to billing cvr (%)| total success purchase|	billing to purchased cvr (%)|	cart abandonment rate (%)|
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 mobile |	19798|	11792|	59.56|	8336 |	70.69|	4508 |	54.08|	77.23|
 desktop|	75155|	52692|	70.11|	43722|	82.98|	27805|	63.59|	63.00|
 
-- Main finding 2: Shipping cost is not a driver of drop-off. Of sessions reaching /shipping, 80.73% proceed to /billing — indicating that delivery terms are not a deterrent at this stage.
+- **Main finding 3:** The /billing-2 iteration successfully mitigated general payment friction but failed to close the mobile performance gap.
+Historical data (Figure 6) indicates that the original /billing page underperformed, converting only ~40-50% of traffic to successful purchases. To address this bottleneck, /billing-2 was launched in September 2012. A statistical evaluation of the A/B testing period (Sept 2012 - Jan 2013) confirmed that /billing-2 delivered a statistically significant lift of 14.32% in conversion rate compared to the control group. This validates that the redesigned payment interface effectively removed critical checkout friction. However, despite this overall optimization, the mobile penalty persists. As shown in Figure 7, mobile conversion on /billing-2 still trails desktop by approximately 10 percentage points, reaffirming that the core issue lies in mobile-specific UX constraints rather than the payment logic itself.
 
-- Main finding 3: Payment friction was resolved through A/B testing. /billing-2 lifted billing-to-purchase CVR from 44.79% to 63.36% on desktop and from 34.55% to 55.09% on mobile — a sustained improvement that has held since September 2012.
-  
-Table 5: Billing Landing Page Performance
-|Device|Page URL|Total Billing Session|Successful Purchase|CVR (%)|
-|:-----|:-----:|:-----:|:-----:|:-----:|
-|desktop|/billing  |	3206	|1478|	46.10|
-|desktop|/billing-2|	40516|	26327|	64.98|
-|mobile|	/billing  |	411	|142	|34.55|
-|mobile|	/billing-2|	7925|	4366|	55.09|
+|<img width="1189" height="589" alt="041714fa-dbd4-4039-be72-766d5383cbba" src="https://github.com/user-attachments/assets/5466b34c-b1f4-4c18-b44f-b587cc8cc782" />|
+|:----:|
+|**Figure 6:** Monthly Billing Conversion Rate (CVR): /billing vs /billing-2|
+
+
+
+<img width="1188" height="589" alt="df6d3ca7-2adb-43f4-bc1d-712853ada296" src="https://github.com/user-attachments/assets/7566f023-d009-43aa-ba1d-c4834f603e04" />
+Monthly Billing CVR by Device Type (Post-Jan 2013)
 
 # Recommendations:
 Based on the insights and findings above, we would recommend the stakeholder to consider the following:
